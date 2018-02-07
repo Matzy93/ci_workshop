@@ -1,0 +1,21 @@
+language: python
+python:
+  - 3.6
+  - nightly
+install:
+  - pip install -r requirements/dev.txt
+script:
+  - nosetests --with-cov --cov-config .coveragerc
+after_success:
+  - codecov
+jobs:
+  include:
+    - stage: Deploy
+      script: skip
+      deploy:
+        provider: heroku
+        api_key:
+          secure: H7+CNfWwV9aOaGUInMjMjKwF377asO2KQXdl6w7Fv+OYEyv76oxFwG7HsWJnotvkRYiKAk/am0/b0BeV+6GjH50QYhsZVQosD5f9qyMmvW1gyx8mgXKYhnNLX3b/TcLqVqYWFeZgJ1juL7aoLjuQpzYyTGyhmXSKgJ+p1/srbSudIkFCldgSotjmqWMMWfmAgmHmr7ORIRFD/oyIoY/V/yZL/apPvgp+914ojBaD4jZ0tMOJgHt2yVc4m9Lxj8Gp6HVkIjSD31vAOLPumFRV0F+kudLHovX2VwuBG/hRpMNBBvQ0e0LmQKXseoZjYNAzeKBgmNuK7VyRQDFmK3J3SMEkdlHidfSO9CJ4zspj2MkZZCRuFOwO0yvTE8Mn7AfRpcKKvaaCMTVlaV2ggYbetgzYtpKedkBKYLasbBn+TMmTmCzz47EbOdqc8JeXcmluHea9EJoe0cAd7USiwHXrZmGtDWm6/m7J+aaSb2OZHAYBhiZpv5kOyzmaquUwrnl/JLHN8w1jGPisHa/bhAqYyapOmlKjx62Ge3t0L4u5rd+VXXd9FP/INETLozQtkbcni6mCOfbqwuCWKTkKc/FWaADcgqPEO75Ygwf9b/CX3jwpwGnxNTbP0UKX9QLx82BLQhoh9Z+QfAhyTbAECffKEPwpKy1IWcZZItnopup1u7E=
+        app: barcodelawaretrip
+        on:
+          repo: Matzy93/ci_workshop
